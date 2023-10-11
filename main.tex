@@ -7686,6 +7686,18 @@ Avec \texttt{random.randrange()}, nous excluons le côté droit de l'intervalle,
 \end{verbatim}
 \medskip
 
+Il y a possibilité d'inclure un pas. Avec l'exemple suivant nous n'obtiendrons que des chiffres impairs compris entre 1 et 10 :
+\begin{verbatim}
+    >>> random.randrange(1, 10, 2)
+    3
+    >>> random.randrange(1, 10, 2)
+    5
+\end{verbatim}
+\medskip
+
+Les arguments de type \textit{mot-clé} ne doivent pas être utilisés car ils peuvent être interprétés de manière inattendue. Par exemple, \texttt{randrange(start=100)} sera interprété comme \texttt{randrange(0, 100, 1)}.
+\medskip
+
 \section{\texttt{random.uniform()}}
 Si nous avons besoin de générer des valeurs flottantes aléatoires comprises dans un intervalle \texttt{[x, y]} spécifique, nous utiliserons \texttt{random.uniform()}:
 \begin{verbatim}
@@ -7696,8 +7708,15 @@ Si nous avons besoin de générer des valeurs flottantes aléatoires comprises d
 \end{verbatim}
 
 \section{\texttt{random.choice()}, \texttt{random.choices()}, \texttt{random.sample()} et \\ \texttt{random.shuffle()}: des outils pour les séquences}
-Pour choisir un élément aléatoire dans une séquence non vide (comme une liste ou un tuple), nous pouvons utiliser \texttt{random.choice()}. Il existe également \texttt{random.choices()} pour choisir plusieurs éléments d'une séquence (à noter que les doublons sont possibles) :
+Pour choisir un élément aléatoire dans une séquence non vide (comme une liste, un tuple ou une chaîne de caractères), nous pouvons utiliser \texttt{random.choice()}. Il existe également \texttt{random.choices()} pour choisir plusieurs éléments d'une séquence (à noter que les doublons sont possibles) :
 \begin{verbatim}
+    >>> sequence = "Ma séquence de caractères"
+    >>> random.choice(sequence)
+    's'
+    >>> random.choice()  # Avec une séquence vide
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    TypeError: Random.choice() missing 1 required positional argument: 'seq'
     >>> items = ['un', 'deux', 'trois', 'quatre', 'cinq']
     >>> random.choice(items)
     'un'
@@ -7710,6 +7729,7 @@ Pour choisir un élément aléatoire dans une séquence non vide (comme une list
     >>> random.choices(items, 3)  # Avec absence du mot-clé de l'argument
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
+      
       File "/usr/lib/python3.11/random.py", line 500, in choices
         raise TypeError(
     TypeError: The number of choices must be a keyword argument: k=3
@@ -7729,14 +7749,48 @@ Pour éviter les doublons il sera préférable de faire appel à \texttt{random.
 \end{verbatim}
 \medskip
 
+Pour mélanger une séquence immuable et renvoyer une nouvelle liste mélangée, utiliser \texttt{sample(x, k=len(x))} :
+\begin{verbatim}
+    >>> sequence_melange = random.sample(sequence, k=len(sequence))
+    >>> print(sequence_melange)
+    ['a', 's', 'd', 't', 'r', 'a', 'n', 'é', 'M', 'e', 'e', ' ', 'c', 'e', 
+    's', 'a', 'e', ' ', 'c', 'q', 'u', 'è', 'r', ' ', 'c']
+    >>> sequence
+    'Ma séquence de caractères'
+\end{verbatim}
+\medskip
+Pour choisir un échantillon parmi un intervalle d'entiers, utiliser un objet \texttt{range()} comme argument. Ceci est particulièrement rapide et économe en mémoire pour un tirage avec un objet \texttt{range()} (nombre) de grande taille :
+\begin{verbatim}
+    >>> random.sample(range(100000000), k=5)
+    [70235670, 50811222, 12831319, 95409983, 89034458]
+    >>> random.sample(range(100), k=150)  # Un échantillon plus grand que 
+                                           l'objet range()
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+      File "/usr/lib/python3.11/random.py", line 456, in sample
+        raise ValueError("Sample larger than population or is negative")
+    ValueError: Sample larger than population or is negative
+\end{verbatim} 
+\medskip
+
 Nous pouvons modifier l'ordre d'une séquence sur place à l'aide de \texttt{random.shuffle()}. Cette méthode modifie l'objet séquence et modifie l'ordre des éléments de manière aléatoire :
 \begin{verbatim}
     >>> random.shuffle(items)
     >>> items
     ['cinq', 'un', 'quatre', 'deux', 'trois']
+    >>> titre = "Pour qui sonne le glas".title().split()
+    >>> random.shuffle(titre)
+    >>> titre
+    ['Qui', 'Pour', 'Le', 'Glas', 'Sonne']
 \end{verbatim}
 \medskip
 
+\section*{Sources pour la rédaction de ce chapitre}
+\begin{description}
+	\item[-] \textit{Generating Random Data in Python (Guide)} (trad: \og \textit{Générer des données aléatoires en Python (Guide)} \fg{}), par Brad \textsc{Solomon} - \url{https://realpython.com/python-random/}
+	\item[-] \textit{random - Génère des nombres pseudo-aléatoires} - \url{https://docs.python.org/fr/3/library/random.html}
+\end{description}
+\medskip
 \end{document}
 
 
