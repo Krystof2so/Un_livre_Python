@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{book}
+\documentclass[a4paper,12pt]{book}
 
 % packages de base
 \usepackage[english,francais]{babel}
@@ -1788,7 +1788,8 @@ Idée de codage: imaginons demander à l'utilisateur non pas son livre préfér�
 \section{Les chaînes formatées}
 Au lieu de concaténer plusieurs chaînes de caractères on va faire appel au formatage qui permet de n'avoir qu'une seule et même chaîne de caractères. Ainsi, au lieu de coder:
 \begin{verbatim}
-    print("Vous vous appelez " + nom + ", vous avez " + str(age) + " ans.")
+    print("Vous vous appelez " + nom + ", vous avez " + str(age) + " 
+          ans.")
 \end{verbatim}
 \medskip
 
@@ -2292,6 +2293,37 @@ if not habite:  # Equivalent à if habite == None:
 \part{\textcolor{cyan}{Devenons plus intime avec \textit{Python}: notions intermédiaires}}
 
 \chapter{Notions approfondies concernant les chaînes de caractères}
+Le traitement des données de caractères fait partie intégrante de la programmation. Rares sont les applications qui n'ont pas besoin de manipuler des chaînes de caractères, au moins dans une certaine mesure. Pour répondre à ces nécessités de manipulation \textit{Python} fournit un riche ensemble d'opérateurs, de fonctions et de méthodes pour travailler avec des chaînes de caractères. 
+
+\section{Les opérateurs de chaînes de caractères}
+\begin{description}
+	\item[L'opérateur \texttt{+}]: concatène des chaînes de caractères.
+	\begin{verbatim}
+	>>> a, b = 'te', 'st'
+>>> a + b
+'test'
+	\end{verbatim}
+	\item[L'opérateur \texttt{*}]: permet des copies multiples d'une chaîne de caractères. L'opérande multiplicateur doit être un entier. On pourrait penser qu'il doit être un entier positif, mais il est amusant de constater qu'il peut être nul ou négatif, auquel cas le résultat est une chaîne vide.
+	\begin{verbatim}
+	>>> 'test' * 4
+'testtesttesttest'
+>>> 'test' * -4
+''
+	\end{verbatim}
+	\item[L'opérateur d'appartenance (\texttt{in} ou \texttt{not in})]: peut s'utiliser avec les chaînes de caractères, et retourne un booléen.
+	\begin{verbatim}
+	>>> 't' in 'test'
+True
+>>> 'a' in 'test'
+False
+>>> 't' not in 'test'
+False
+>>> 'a' not in 'test'
+True
+	\end{verbatim}
+\end{description}
+\medskip
+
 \section{Préfixes et suffixes d'une chaîne de caractères}
 \subsection*{La méthode \texttt{strip()}}
 Par défaut la fonction \texttt{strip()} supprime les espaces situés en fin et en début de chaîne.
@@ -7799,6 +7831,351 @@ Nous pouvons modifier l'ordre d'une séquence sur place à l'aide de \texttt{ran
 	\item[-] \textit{random - Génère des nombres pseudo-aléatoires} - \url{https://docs.python.org/fr/3/library/random.html}
 \end{description}
 \medskip
-\end{document}
 
+\chapter{Les expressions régulières avec le module \texttt{re}}
+Pour rappel, nous avons déjà vu comment les correspondances de chaînes de caractères, soit avec l'opérateur \texttt{in} et les méthodes \texttt{.find()} et \texttt{.index} appliquées aux objets de type \texttt{str}.
+\begin{verbatim}
+    >>> chaine = "abc1234hij"
+    >>> "1234" in ch
+    >>> "1234" in chaine
+    True
+    >>> chaine.find("1234")
+    3
+    >>> chaine.index("1234")
+    3
+\end{verbatim}
+\medskip
+
+Dans ces exemples la recherche de correspondance s'effectue caractère par caractères, mais imaginons rechercher si la chaîne contient trois caractères numériques consécutifs... C'est là que l'emploi des \textit{expressions régulières} va se montrer pertinent. 
+\medskip
+
+Les expressions régulières\footnote{\url{https://fr.wikipedia.org/wiki/Expression_r\%C3\%A9guli\%C3\%A8re}}, aussi appelées \textit{regexes}, sont des séquences de caractères et de métacaractères qui définissent des modèles plus ou moins complexes de correspondance de chaînes de caractères. Il est à noter qu'apprendre la  syntaxe \textit{regex} nécessite du temps et de la pratique, mais une fois assimilée il vous sera évident d'y recourir pour coder vos correspondances de chaînes de caractères. 
+\medskip
+
+\section{\texttt{Python} et les \textit{regexes}}
+Avec \texttt{Python} nous faisons appel au module \texttt{re}, qui contient nombre de fonctions et méthodes pour manipuler des expressions régulières. Mais pour ce qui va suivre, nous allons nous limiter à l'utilisation de la fonction \texttt{search()} afin de nous concentrer sur les diverses syntaxes possibles des \textit{regexes}.
+\medskip
+
+Commençons par importer le module :
+\begin{lstlisting}
+import re
+\end{lstlisting}
+\medskip
+
+Ou seulement la fonction :
+\begin{lstlisting}
+from re import search
+\end{lstlisting}
+\medskip
+
+La fonction \texttt{search()} permet l'analyse d'une chaîne de caractères et fait la correspondance avec une expression régulière. En voici la syntaxe générale :
+\begin{verbatim}
+    re.search(<regex>, <chaîne de caractères>
+\end{verbatim}
+\medskip
+
+Une telle instruction va scanner \texttt{<chaîne de caractères>} jusqu'à trouver une correspondance avec \texttt{<regex>}. Si une correspondance est trouvée la fonction \texttt{search()} retourne un \textit{objet de correspondance} sinon c'est \texttt{None} qui est retourné. La fonction \texttt{search()} peut prendre un troisième argument facultatif que nous verrons par la suite. Il est à noter que \texttt{re.search()} analyse la chaîne de recherche de gauche à droite et, dès qu'il trouve une correspondance pour avec le \textit{regex}, il arrête l'analyse et renvoie la correspondance.
+\medskip
+
+\subsection*{Un premier exemple de correspondance de motif (ou \textit{pattern}}
+\begin{lstlisting}
+import re
+
+chaine = "abc1234hij"
+print(re.search("1234", chaine))
+\end{lstlisting}
+\medskip
+
+Ce qui nous affichera un objet de correspondance qui nous indique que le motif (\textit{regex} ou \textit{pattern}) \texttt{1234} est bien présent dans la chaîne de caractère \texttt{chaîne} :
+\begin{verbatim}
+    <re.Match object; span=(3, 7), match='1234'>
+\end{verbatim}
+\medskip
+
+Informations également retournées :
+\begin{description}
+	\item[- \texttt{span=(3, 7)}] : cela indique là où le motif a été trouvé dans la chaîne de caractères, ce qui est équivalent à la notation à l'aide de \textit{slices} (\texttt{chaine[3:7]}).
+	\item[- \texttt{match='1234'}] : indique le motif trouvé (celui recherché) dans la chaîne de caractères.
+\end{description}
+\medskip
+
+Un objet de correspondance est considéré comme \texttt{True}, donc utilisable en tant que \textit{booléen} :
+\begin{lstlisting}
+import re
+
+chaine = "abc1234hij"
+print("Correspondance trouvée" if re.search("1234", chaine) 
+      else "Pas de correspondance")
+# 'Correspondance trouvée' sera ici affiché
+\end{lstlisting}
+\medskip
+
+Mais pour l'instant cela ne diffère pas trop des méthodes que nous avions vu précédemment avec l'opérateur \texttt{in} et les méthodes \texttt{.find()} et \texttt{.index()}. Le \textit{regex} ici n'est qu'une simple chaîne de caractères. Passons maintenant à des motifs un peu moins simplistes.
+\medskip
+
+\subsection*{Des \textit{regexes} avec des métacaractères}
+Le véritable pouvoir de la correspondance entre expressions régulières et chaînes de caractères apparaît lorsque le \textit{regex} contient des caractères spéciaux appelés \textit{métacaractères}. Ceux-ci ont une signification unique pour le moteur de correspondance d’expressions régulières et améliorent considérablement les capacités de recherche.
+\medskip
+
+Dans une expression régulière, un ensemble de caractères spécifiés entre crochets (\texttt{[]}) constitue une \textit{classe de caractères}. Considérons à nouveau le problème de savoir comment déterminer si une chaîne de caractères contient quatre caractères décimaux consécutifs.
+\begin{lstlisting}
+import re
+
+chaine = "abc1234hij"
+print(re.search('[0-9][0-9][0-9][0-9]', chaine))
+# Affichage en sortie : 
+# '<re.Match object; span=(3, 7), match='1234'>
+\end{lstlisting}
+\medskip
+
+\texttt{[0-9]} correspond à n'importe quel caractère décimal unique (n'importe quel caractère compris entre '0' et '9', inclus). L'expression complète \texttt{[0-9][0-9][0-9][0-9]} correspond à n'importe quelle séquence de quatre caractères décimaux. Dans ce cas, \texttt{chaine} correspond car il contient quatre caractères décimaux consécutifs (\texttt{1234}).
+\medskip
+
+Le même motif avec des chaînes de caractères différentes :
+\begin{verbatim}
+    >>> re.search('[0-9][0-9][0-9][0-9]', "jkl3695mfg")
+    <re.Match object; span=(3, 7), match='3695'>
+    >>> re.search('[0-9][0-9][0-9][0-9]', "401ghjk2563")
+    <re.Match object; span=(7, 11), match='2563'>
+    >>> re.search('[0-9][0-9][0-9][0-9]', "abc123ghi")  # Ne retourne 
+                                                        # rien
+    >>>
+\end{verbatim}
+\medskip
+
+Voyons le métacaractère point (\texttt{.}) qui correspond à n'importe quel caractère, soit comme un caractère générique :
+\begin{verbatim}
+    >>> re.search('1.3', 'abc123efg')
+    <re.Match object; span=(3, 6), match='123'>
+    >>> re.search('1.3', 'abc13efg')  # Ne retourne rien
+\end{verbatim}
+\medskip
+
+\section{Les métacaractères pris en charge par le module \texttt{re}}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\textbf{Caractère} & \textbf{Fonctionnalité} \\
+\hline
+\texttt{.} (point) & Correspond à n'importe quel caractère unique sauf un saut de ligne. \\
+\hline
+\texttt{\^} (circonflexe) & \begin{itemize}
+\item[.] Correspond au début d'une chaîne de caractères ou d'une ligne. 
+\item[.] Complète une classe de caractères.
+\end{itemize} \\
+\hline
+\texttt{\$} (dollar) & Correspond à la fin d'une chaîne de caractères ou d'une ligne. \\
+\hline
+\texttt{*} (astérisque) & Correspond à zéro ou plusieurs occurrences du caractère ou du groupe précédent. \\
+\hline
+\texttt{+} (plus) & Correspond à une ou plusieurs occurrences du caractère ou du groupe précédent. \\
+\hline
+\texttt{?} (point d'interrogation) & \begin{itemize}
+\item[.] Correspond à zéro ou une occurrence du caractère ou du groupe précédent. 
+\item[.] Spécifie les versions non gourmandes de \texttt{*}, \texttt{+} et \texttt{?}. 
+\item[.] Introduit une assertion \textit{lookahead} ou \textit{lookbehind}. 
+\item[.] Crée un groupe nommé. 
+\end{itemize} \\
+\hline
+\texttt{\{\}} (accolades) & Spécifient le nombre d'occurrences souhaité. Par exemple, \texttt{a\{3\}} correspond à trois occurrences de \og \texttt{a}\fg{}. \\
+\hline
+\texttt{\textbackslash} (barre oblique inverse ou \textit{backslash}) & \begin{itemize}
+\item[.] Échappe les métacaractères spéciaux pour les traiter littéralement. Par exemple, \texttt{\textbackslash\textbackslash} correspond au caractère \texttt{\textbackslash}.
+\item[.] Introduit une classe de caractères spéciaux.
+\item[.] Introduit une référence arrière de regroupement.
+\end{itemize} \\
+\hline
+\texttt{[]} (crochets) & Utilisés pour définir une classe de caractères. Par exemple, \texttt{[aeiou]} correspond à n'importe quelle voyelle. \\
+\hline
+\texttt{$\vert$} (\textit{pipe}) & Représente l'opérateur logique \og \texttt{ou}\fg{}. Par exemple, \texttt{A$\vert$B} correspond à \texttt{\og A\fg{} ou \og B\fg{}}. \\
+\hline
+\texttt{()} (parenthèses) & Créent des groupes de capture pour extraire des sous-chaînes correspondantes. \\
+\hline
+\begin{itemize}
+\item[.] \texttt{:}
+\item[.] \texttt{\#}
+\item[.] \texttt{=}
+\item[.] \texttt{!}
+\end{itemize} & Désigne un groupe spécialisé. \\
+\hline
+\texttt{<>} & Crée un groupe nommé. \\
+\hline
+\end{tabular}
+\caption{Liste des métacaractères}\label{metacaracteres}
+\end{center}
+\end{table}
+\medskip
+
+L'analyseur de \textit{regex} considère tout caractère non listé dans le tableau figurant page \pageref{metacaracteres} comme un caractère ordinaire qui ne correspond qu'à lui-même.
+\medskip
+
+\subsection*{Les métacaractères correspondant à un seul caractère}
+Les caractères contenus entre crochets (\texttt{[]}) représentent une classe de caractères, c'est-à-dire un ensemble énuméré de caractères à partir desquels il est possible d'établir une correspondance. Nous pouvons alors énumérer les caractères individuellement comme suit :
+\begin{verbatim}
+    >>> re.search('ba[artz]', 'foobarqux')
+    <re.Match object; span=(3, 6), match='bar'>
+    >>> re.search('ba[artz]', 'foobazqux')
+    <re.Match object; span=(3, 6), match='baz'>
+\end{verbatim}
+\medskip
+
+La séquence de métacaractères \texttt{[artz]} correspond à tout caractère \og \texttt{a}\fg{}, \og \texttt{r}\fg{}, \og \texttt{t}\fg{} ou \og \texttt{z}\fg{}. Dans l'exemple, le \textit{regex} \texttt{ba[artz]} correspond à la fois à '\texttt{bar}' et à '\texttt{baz}' (et correspondrait également à '\texttt{baa}' et à '\texttt{bat}').
+\medskip
+
+Une classe de caractères peut également contenir une plage de caractères séparés par un trait d'union (\texttt{-}), auquel cas elle correspond à n'importe quel caractère de la plage. Par exemple, \texttt{[a-z]} correspond à tout caractère alphabétique minuscule compris entre \og \texttt{a}\fg{} et \og \texttt{z}\fg{} inclus :
+\begin{verbatim}
+    >>> re.search('[a-z]', 'TEst')
+    <re.Match object; span=(2, 3), match='s'>
+    >>> # Tout caractère numérique :
+    >>> re.search('[0-9][0-9]', 'TEST123')  
+    <re.Match object; span=(4, 6), match='12'>
+    >>> # Caractère hexadécimal :
+    >>> re.search('[0-9a-fA-f]', "*-*- a12 -/*")  
+    <re.Match object; span=(5, 6), match='a'>
+\end{verbatim}
+\medskip
+
+Nous pouvons compléter une classe de caractères en spécifiant \texttt{\^} comme premier caractère, auquel cas la correspondance est établie avec tout caractère ne faisant pas partie de l'ensemble. Ici, nous excluons tout caractère numérique:
+\begin{verbatim}
+    >>> re.search('[^0-9]', '123456test')
+    <re.Match object; span=(6, 7), match='t'>
+\end{verbatim}
+\medskip
+
+Si un caractère \texttt{\^} apparaît dans une classe de caractères mais n'est pas le premier caractère, il n'a pas de signification particulière et correspond à un caractère \texttt{"\^{}"} littéral :
+\begin{verbatim}
+    >>> re.search('[#:^]', 'te^st')
+    <re.Match object; span=(2, 3), match='^'>
+\end{verbatim}
+\medskip
+
+Pour prendre en compte le caractère trait d'union (\texttt{-}) dans la correspondance, il faudra soit le placer comme premier ou dernier caractère, soit l'échapper avec une barre oblique inverse (\texttt{\textbackslash})\footnote{Attention, avec la version \texttt{3.12} de \textit{Python}, pour un caractère d'échappement, il sera nécessaire de mettre la lettre \texttt{r} devant le motif. Ce qui donne: \texttt{r'[ab\textbackslash{}-c]'}. Avec l'emploi des métacaractères dans les motifs il faut savoir qu'il est recommandé de l'employer pour éviter certains problèmes de syntaxe qui ne seraient pas considérées comme valide. Sans le préfixer le motif d'un \texttt{r} il est possible de le coder de la façon suivante : \texttt{'[ab\textbackslash{}\textbackslash{}-c]'}. Pour la suite du chapitre nous prendrons en compte ce point en préfixant nos motifs d'un \texttt{r} quand cela est nécessaire.}:
+\begin{verbatim}
+    >>> re.search('[-abc]', '123-456')
+    <re.Match object; span=(3, 4), match='-'>
+    >>> re.search('[abc-]', '123-456')
+    <re.Match object; span=(3, 4), match='-'>
+    >>> re.search('[ab\-c]', '123-456')
+    <re.Match object; span=(3, 4), match='-'>
+\end{verbatim}
+\medskip
+
+Pour un caractère crochet (\texttt{]}) il faudra le placer en tant que premier caractère où l'échapper:
+\begin{verbatim}
+    >>> re.search('[]]', 'tes]t')
+    <re.Match object; span=(3, 4), match=']'>
+    >>> re.search('[ab\]cd]', 'tes]t')
+    <re.Match object; span=(3, 4), match=']'>
+\end{verbatim}
+\medskip
+
+Par contre, d'autres métacaractères de \textit{regex} perdent leur signification particulière à l'intérieur d'une classe de caractères :
+\begin{verbatim}
+    >>> re.search('[)*+|]', 'te*st')
+    <re.Match object; span=(2, 3), match='*'>
+    >>> re.search('[)*+|]', 'te)st')
+    <re.Match object; span=(2, 3), match=')'>
+    >>> re.search('[)*+|]', 'te+st')
+    <re.Match object; span=(2, 3), match='+'>
+    >>> re.search('[)*+|]', 'te|st')
+    <re.Match object; span=(2, 3), match='|'>
+\end{verbatim}
+\medskip
+
+\subsubsection*{Le point (\texttt{.}) pour spécifier un caractère de remplacement}
+\begin{verbatim}
+    >>> re.search('te.t', 'test')
+    <re.Match object; span=(0, 4), match='test'>
+    >>> re.search('te.t', 'tête')  # None en sortie
+    >>> # None en sortie aussi avec le caractère de nouvelle ligne
+    >>> re.search('te.t', 'te\nt')
+\end{verbatim}
+\medskip
+
+\subsubsection*{Correspondance basée sur le fait qu'un caractère est ou n'est pas un mot (\texttt{\textbackslash{}w} ou \texttt{\textbackslash{}W})}
+\texttt{\textbackslash{}w} correspond à n'importe quel caractère alphanumérique, ce qui est finalement équivalent à \texttt{[a-zA-Z0-9\_]}.
+\begin{verbatim}
+    >>> re.search(r'\w', '#(.test$@&')
+    <re.Match object; span=(3, 4), match='t'>
+    >>> # Similaire à :
+    >>> re.search('[a-zA-Z0-9_]', '#(.a$@&')
+    <re.Match object; span=(3, 4), match='a'>
+\end{verbatim}
+\medskip
+
+Avec \texttt{\textbackslash{}W} c'est le contraire, cela correspond à tout caractère autre qu'un caractère alphanumérique et est équivalent à \texttt{[\^a-zA-Z0-9\_]} :
+\begin{verbatim}
+    >>> re.search(r'\W', 'te*st')
+    <re.Match object; span=(2, 3), match='*'>
+\end{verbatim}
+\medskip
+
+\subsubsection*{Correspondance basée sur le fait qu'un caractère est un chiffre décimal ou non (\texttt{\textbackslash{}d} ou \texttt{\textbackslash{}D})}
+\begin{verbatim}
+    >>> re.search(r'\d', 'te2st')
+    <re.Match object; span=(2, 3), match='2'>
+    >>> re.search(r'\D', '12t34')
+    <re.Match object; span=(2, 3), match='t'>
+\end{verbatim}
+\medskip
+
+\texttt{\textbackslash{}d} est essentiellement équivalent à \texttt{[0-9]}, et \texttt{\textbackslash{}D} est équivalent à \texttt{[\^0-9]}.
+\medskip
+
+\subsubsection*{Correspondance basée sur le fait qu'un caractère représente ou non un espace blanc (\texttt{\textbackslash{}s} ou \texttt{\textbackslash{}S})}
+\begin{verbatim}
+    >>> re.search(r'\s', 'te st')
+    <re.Match object; span=(2, 3), match=' '>
+    >>> # Prise en compte d'une nouvelle ligne :
+    >>> re.search(r'\s', 'te\nst')
+    <re.Match object; span=(2, 3), match='\n'>
+    >>> # Pas de correspondance avec un caractère blanc :
+    >>> re.search(r'\S', ' \n test')
+    <re.Match object; span=(3, 4), match='t'>
+\end{verbatim}
+\medskip
+
+Les séquences de classes de caractères \texttt{\textbackslash{}w}, \texttt{\textbackslash{}W}, \texttt{\textbackslash{}d}, \texttt{\textbackslash{}D}, \texttt{\textbackslash{}s} et \texttt{\textbackslash{}S} peuvent également apparaître à l'intérieur d'une classe de caractères entre crochets :
+\begin{verbatim}
+    >>> re.search(r'[\d\w\s]', '---3---')
+    <re.Match object; span=(3, 4), match='3'>
+    >>> re.search(r'[\d\w\s]', '---a---')
+    <re.Match object; span=(3, 4), match='a'>
+    >>> re.search(r'[\d\w\s]', '--- ---')
+    <re.Match object; span=(3, 4), match=' '>
+\end{verbatim}
+\medskip
+
+\subsection*{Échapper les métacaractères}
+Parfois, nous voudrons inclure un métacaractère dans notre \textit{regex}, mais sans qu'il porte sa signification spéciale et qu'au final il se représente comme un caractère littéral.
+\medskip
+
+\subsubsection*{Supprimer la signification particulière d'un métacaractère (le \textit{backslash} : \texttt{\textbackslash})}
+\begin{verbatim}
+    >>> re.search('\.', 'te.st')
+    <re.Match object; span=(0, 1), match='t'>
+    >>> re.search(r'\.', 'te.st')
+    <re.Match object; span=(2, 3), match='.'>
+\end{verbatim}
+\medskip
+
+Pour échapper le métacaractère \textit{backslash} (ou barre oblique, \texttt{\textbackslash}) il nous faut faire appel aux \textit{raw-strings}, autrement dit le fameux \texttt{r} que nous employons depuis un petit moment :
+\begin{verbatim}
+    >>> re.search(r'\\', r'te\st')
+    <re.Match object; span=(2, 3), match='\\'>
+\end{verbatim}
+\medskip
+
+Il est donc conseillé d'utiliser une \textit{raw-string} (ou \textit{chaîne brute)} pour spécifier une \textit{regex} en \textit{Python} lorsqu'elle contient des barres obliques inverses.
+\medskip
+
+\subsection*{Les ancres}
+Une ancre indique un emplacement particulier dans la chaîne de recherche où une correspondance doit se produire.
+\medskip
+
+\subsubsection*{Ancrer une correspondance au début d'une <\textit{string}> (\texttt{\^} et \texttt{\textbackslash{}A})}
+
+\end{document}
 
