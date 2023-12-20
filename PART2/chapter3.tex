@@ -1,0 +1,203 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PART 2 - Chapitre 3 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Les variables}
+\section{Une rapide introduction}
+\subsection*{Affectation d'une valeur à une variable}
+Insérons la ligne suivante dans notre fichier \texttt{main.py}:
+\begin{verbatim}
+    nom_de_la_personne = "Krystof"
+\end{verbatim}
+\medskip
+
+A son exécution, rien ne se passe, et pourtant nous venons de créer une nouvelle variable \\(\texttt{nom\_de\_la\_personne}) de type \textit{chaîne de caractères} et qui prend comme valeur la chaîne \texttt{Krystof}. Nous venons donc de stocker la valeur dans la variable. Et dorénavant nous pourrons faire référence à cette variable dès que nous en aurons besoin dans notre code. Une variable doit toujours être définie avant d'être utilisée.
+\medskip
+
+Affichons la valeur de notre variable en ajoutant la ligne suivante:
+\begin{verbatim}
+    print(nom_de_la_personne)
+\end{verbatim}
+\medskip
+
+Nous pouvons ajouter du texte à cela par une concaténation:
+\begin{verbatim}
+    print("Bonjour " + nom_de_la_personne)
+\end{verbatim}
+En \textit{Python}, le symbole \texttt{+} utilisé avec des chaînes de caractères permet donc la concaténation.
+\medskip
+
+Il est aussi possible d'afficher de manières successive (avec un espace) les paramètres de la fonction \textit{print()} à l'aide d'une virgule, mais cela n'est pas de la concaténation:
+\begin{verbatim}
+    print("Bonjour", nom_de_la_personne)
+\end{verbatim}
+\medskip
+
+Notre code est maintenant composé des deux lignes suivantes:
+\begin{lstlisting}
+	nom_de_la_personne = "Krystof"
+	print("Bonjour " + nom_de_la_personne)
+\end{lstlisting}
+\medskip
+
+Le résultat une fois ce code exécuté sera:
+\begin{verbatim}
+    Bonjour Krystof
+\end{verbatim}
+\medskip
+
+\subsection*{L'évolution d'une variable}
+Une variable peut se voir réaffecter une valeur selon le principe suivant:
+\begin{description}
+	\item[\texttt{n = "Krystof"}]: Création de la variable.
+	\item[\texttt{n = "Paul"}]: Réaffectation de la variable. On lui donne simplement une autre valeur.
+\end{description}
+\medskip
+
+\section{Demander des données à l'utilisateur}
+Nous allons réaliser cela à l'aide de la fonction \texttt{input()}. Cette fonction a pour but de retourner une valeur que nous pouvons stocker dans une variable:
+\begin{verbatim}
+    reponse = input("Quel est votre nom ? ")
+\end{verbatim}
+\begin{description}
+    \item[reponse] = variable
+    \item[input()] = fonction
+    \item["Quel est votre nom ? "] = paramètre
+\end{description}
+\medskip
+
+Revenons à notre code qui devient celui-ci:
+\begin{lstlisting}
+    nom_de_la_personne = input("Quel est votre nom ? ")
+    print("Bonjour " + nom_de_la_personne)
+\end{lstlisting}
+\medskip
+
+A la question posée, on saisit un nom:
+\begin{verbatim}
+    Quel est votre nom ? Krystof [Entrée]
+    Bonjour Krystof
+\end{verbatim}
+\medskip
+
+\section{Autres types de variables}
+\begin{verbatim}
+    age = 30
+\end{verbatim}
+\medskip
+
+Nous venons d'affecter la valeur \texttt{30} à la variable \texttt{age} qui par conséquent devient une variable de type numérique, à la différence de si nous avions codé \verb|age = "30"| où du coup la variable \texttt{age} aurait été de type chaîne de caractères.
+\medskip
+
+Il existe une fonction \texttt{type()} qui permet d'indiquer le type d'une variable.
+\begin{lstlisting}
+    nom = "Krystof"
+    age = 30
+    print(type(nom))
+    print(type(age))
+\end{lstlisting}
+\medskip
+
+Ce qui donne en sortie:
+\begin{verbatim}
+    <class 'str'>
+    <class 'int'>
+\end{verbatim}
+\medskip
+
+Nous reviendrons plus tard sur la notions de \textit{classe}. Ce qu'il faut retenir ici c'est que la première variable est identifiée comme \texttt{str} (abréviation de \textit{string} qui veut dire \og chaîne de caractères\fg), et la seconde est identifiée comme \texttt{int} (abréviation de \textit{integer} qui veut dire \og nombre entier\fg).
+\medskip
+
+Comme autres valeurs numériques, nous avons les nombres décimaux (de type \texttt{float}), et les booléens dont les valeurs ne peuvent être que \texttt{True} (pour \og vrai \fg, de valeur \texttt{1}) et \texttt{False} (pour \og Faux \fg, de valeur \texttt{0}).
+\medskip
+  
+On ne peut concaténer une chaîne de caractères avec une valeur numérique. Nous aurions alors une erreur de type \texttt{TypeError}. Pour réaliser une telle opération il va nous falloir convertir notre valeur numérique en valeur de type chaîne de caractères. Nous allons utiliser la fonction \texttt{str()}:
+\begin{lstlisting}
+    age = 30
+    print("Notre texte..." + str(age))
+\end{lstlisting}
+\medskip
+
+La conversion peut aussi se réaliser dans l'autre sens avec la fonction \texttt{int()}.
+\begin{lstlisting}[caption=Conversion avec la fonction \texttt{int}]
+	age = "30"
+	ageX2 = int(age) * 2
+	print(ageX2)
+\end{lstlisting}
+\medskip
+
+Dans le cas présent cela nous affiche \texttt{60}\footnote{Nous n'avons pas encore vu les calculs en \textit{Python}, mais comme vous pouvez le voir sur l'exemple le symbole \texttt{*} correspond au signe de multiplication.}. Par contre si la variable age ne contenait pas une valeur numérique (Si elle avait contenu la valeur \texttt{\og trente \fg} par exemple) nous aurions eu alors une erreur de type \texttt{ValueError}\footnote{Nous reviendrons plus loin sur les erreurs et les types d'erreurs}.
+\medskip
+
+En \textit{Python}, les variables peuvent changer de type, ce qui n'est pas possible avec d'autres langages de programmation (Exemple: langage \textit{C}). Mais une telle manipulation est déconseillée. On va alors plutôt faire appel à une autre variable. Il est donc préférable de faire:
+\begin{verbatim}
+    age_int = int(age)
+\end{verbatim}
+\medskip
+
+... plutôt que:
+\begin{verbatim}
+    age = age(int)
+\end{verbatim}
+\medskip
+
+\subsection*{L'incrémentation d'une variable numérique}
+\begin{lstlisting}[caption=Principe de l'incrémentation]
+    nbre = 0
+    nbre = nbre + 1  # on ajoute 1 à la valeur de la variable
+    nbre += 1  # Autre méthode d'incrémentation
+\end{lstlisting}
+\medskip
+
+\subsection*{La variable de type \texttt{float}}
+Il s'agit d'une valeur numérique décimale.
+\begin{lstlisting}
+  var = 1.75
+  print(type(var))
+\end{lstlisting}
+\medskip
+
+Ce qui donne en sortie:
+\begin{verbatim}
+    <class 'float'>
+\end{verbatim}
+\medskip
+
+Exemples avec l'emploi de la fonction \texttt{float()}:
+\begin{verbatim}
+>>> float('+14.25')
+14.25
+>>> float('-1.12')
+-1.12
+>>> float('-infinity')
+-inf
+>>> float('+infinity')
+inf
+\end{verbatim}
+\medskip
+
+\subsection*{Les booléens}
+Ils représentent les valeurs \textit{faux} et \textit{vrai}. Les objets \texttt{False} et \texttt{True}, sont les seuls objets booléens. Le type booléen est un sous-type du type entier et les valeurs booléennes se comportent comme les valeurs \texttt{0} (pour \texttt{False}) et \texttt{1} (pour \texttt{True}) dans presque tous les contextes.
+\medskip
+
+Exemple, avec l'emploi de la fonction \texttt{bool()}:
+\begin{lstlisting}
+x = 3
+if x:
+    print(x)
+    print(bool(x))
+\end{lstlisting}
+\medskip
+
+La sortie de ce code est la suivante:
+\begin{verbatim}
+3
+True
+\end{verbatim}
+\medskip
+
+\section{Les constantes}
+En \textit{Python} les variables constantes n'existent pas, mais par convention on va utiliser un nom de variable en lettres majuscules pour indiquer que nous souhaitons utiliser cette variable comme constante, c'est-à-dire que l'on en souhaite pas que sa valeur soit modifiée.
+\begin{verbatim}
+    MA_CONSTANTE = 100  # Par exemple
+\end{verbatim}
+\medskip

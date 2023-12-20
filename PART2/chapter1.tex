@@ -1,0 +1,105 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PART 2 - Chapitre 1 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Comment cela fonctionne-t-il ?}
+\section{Des concepts de base en programmation}
+Nous allons progressivement voir et détailler les notions de \textit{variables}, \textit{fonctions}, \textit{boucles}, \textit{conditions} et \textit{algorithmie}. Il s'agit des notions essentielles de base, communes à tous les langages de programmation.
+\medskip
+
+Nous pouvons établir une similitude avec la recette de cuisine puisque le développeur, en codant, va finalement écrire une recette. L'ordinateur, à l'instar du cuisinier qui va réaliser la recette de cuisine, sera ensuite à exécuter ce code. Si ce code est bien écrit, alors l'ordinateur va l'exécuter sans difficulté, et le rendu de cette exécution sera celui voulu par le développeur. Au contraire, si le code comporte des erreurs, on dit alors qu'il contient des \textit{bugs} et le rôle du développeur va consister à \textit{déboguer} en analysant le code source, c'est-à-dire à en comprendre les erreurs. Il peut, pour être aidé dans sa tâche, faire appel à un \textit{debugger}, logiciel destiné à investiguer le code en vue de retrouver les erreurs.
+\medskip
+
+\section{Les variables}
+Une variable est un nom (une étiquette) que l'on associe à une objet. On va alors dire que l'on affecte une valeur à une variable.
+\medskip
+
+Exemple:
+\begin{verbatim}
+    beurre = 50 (Pour des nombres)
+    ingredient1 = "lait" (Pour des caractères)
+    variable = valeur (syntaxe générale)
+\end{verbatim}
+\medskip
+
+\section{Les fonctions}
+En programmation, une fonction est un bloc de code autonome qui encapsule une tâche spécifique ou un groupe de tâches connexes. Les fonctions vont donc nous permettre de représenter un certain nombre d'actions, et vont aussi nous permettre de mieux structurer et organiser le code.
+\medskip
+
+Les fonctions sont capables de retourner (mot clé \texttt{return}) un résultat (une valeur par exemple) que l'on peut ensuite affecter à une variable.
+\medskip
+
+\section{Les conditions}
+Les conditions, les boucles (cf. infra), mais aussi les fonctions ou les gestions d'erreurs, forment ce que l'on nomme en programmation (notamment utilisées en programmation impérative) les \textit{structures de contrôle}. Les conditions permettent de réaliser des sauts conditionnels en proposant un branchement si une condition est vérifiée. Si la condition n'est pas vérifiée, l'exécution se poursuit séquentiellement. La condition est parfois appelée « condition de rupture » puisqu'elle implique en général une rupture dans le flot d'exécution lorsque la condition est vérifiée. 
+\medskip
+
+En \texttt{Python} les conditions fournissent le résultat de l'évaluation d'une expression. Les jeux de \textit{structures de contrôle} que l'on rencontre dans le langage \texttt{Python} sont basés sur des blocs d'instruction balisés par l'indentation, forme syntaxique qui n'utilise pas de mots clés ou de symboles de ponctuation, comme nous pouvons le rencontrer avec d'autres langages de programmation.
+\begin{verbatim}
+    Si...
+        alors...
+    Sinon...
+\end{verbatim}
+\medskip
+
+Exemple avec une recette de cuisine:
+\begin{verbatim}
+    Si j'ai de la crème
+        Alors j'ajoute de la crème
+    Sinon
+        Je n'ajoute pas de crème
+\end{verbatim}
+\medskip
+
+Mots clés en programmation pour exprimer les conditions: \texttt{if} (\og \textit{si} \fg{})  et \texttt{else} (\og \textit{sinon} \fg{}).
+\medskip
+
+Ainsi, il est possible de réaliser divers tests qui viennent conditionner l'exécution du programme:
+\begin{description}
+	\item[Le test \og \textit{si} \fg{}]:
+	\begin{verbatim}
+	    if condition : 
+	        instruction
+	\end{verbatim}
+	\item[Test \og \textit{si sinon} \fg{}]:
+	\begin{verbatim}
+	    if condition : 
+	        instruction 1
+	    else:
+	        instruction 2
+	\end{verbatim}
+	\item[Test \og \textit{sinon si} \fg{}]:
+	\begin{verbatim}
+	    if condition : 
+	        instruction 1
+	    elif autre condition:
+	        instruction 2
+	    instruction 3
+	 \end{verbatim}
+	 \item[Test \og \textit{selon} \fg{}]: en \texttt{Python} cela est possible à partir de la version \texttt{10}, introduit sous le nom \texttt{match case} (cf. le chapitre dédiée aux structures conditionnelles).
+\end{description} 
+
+\section{Les boucles}
+Une boucle est une structure de contrôle destinée à exécuter une portion de code plusieurs fois de suite.
+\begin{verbatim}
+    Faire n fois:
+        mon action
+\end{verbatim}
+\medskip
+
+En programmation on rencontre des boucles \texttt{for} et des boucles \texttt{while}.
+\bigskip
+
+\section{Algorithmie (ou \og façon de faire \fg{})}
+\medskip
+
+\section{Les objets et la programmation orientée objet (\textit{POO)}}
+\medskip
+En \textit{Python}, toutes les données d'un programme sont représentées par des objets ou par des relations entre les objets\footnote{Lire le chapitre \og Modèle de données\fg{} in \og  \textit{La référence du langage Python}\fg{}: \url{https://docs.python.org/fr/3/reference/datamodel.html}}. Autrement dit en \textit{Python} il est habituel d'énoncer que tout est objet. Chaque objet possède un identifiant, un type et une valeur. L'identifiant d'un objet ne change jamais après sa création\footnote{Cet identifiant peut-être représenté comme l'adresse de l'objet en mémoire. L'opérateur \texttt{is} compare les identifiants de deux objets et la fonction \texttt{id()} renvoie un entier représentant cet identifiant. Ces notions seront vues plus en détail par la suite.}.
+\medskip
+
+Le type de l'objet détermine les opérations que l'on peut appliquer à l'objet et définit aussi les valeurs possibles pour les objets de ce type. La fonction \texttt{type()} renvoie le type de l'objet (qui est lui-même un objet). Comme l'identifiant, le type d'un objet ne peut pas être modifié.
+\medskip
+
+La valeur de certains objets peut changer. Les objets dont la valeur peut changer sont dits \textit{muables} (\textit{mutable} en anglais), mais les objets dont la valeur est définitivement fixée à leur création sont dits \textit{immuables} (\textit{immutable} en anglais). La muabilité d'un objet est définie par son type: les nombres, les chaînes de caractères et les tuples sont immuables alors que les dictionnaires et les listes sont muables.
+\medskip
+
+Certains objets contiennent des références à d'autres objets: on les appelle \textit{conteneurs} (Les listes, les tuples, les dictionnaires).

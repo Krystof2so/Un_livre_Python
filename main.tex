@@ -6,14 +6,17 @@
 \usepackage[T1]{fontenc}
 
 % packages additionnels
+\usepackage{color}  % pour utiliser des couleurs
 \usepackage{fancyhdr}  % Personnalisation en-tête et pied de page
 \usepackage{graphicx}
 \usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry} % Pour redimensionner les marges
-\usepackage{color}  % pour utiliser des couleurs
-\usepackage{xcolor}  % pour utiliser des couleurs
-\usepackage{verbatim}  % pour les citations de code
-\usepackage{listings}  % Pour définir un environnement de citation de code
 \usepackage[hyphens]{url}  % Pour insérer des url. l'option 'hyphens' permet de ne pas afficher de barre oblique au niveau de la césure d'une url.
+\usepackage{listings}  % Pour définir un environnement de citation de code
+\usepackage{verbatim}  % pour les citations de code
+\usepackage{xcolor}  % pour utiliser des couleurs
+\usepackage{xurl}  % pour gérer la césure des urls.
+\usepackage{zi4} % Pour une police spéciale 'code' dans l'environnement 'verbatim', 'lstlisting' et 'texttt'.
+
 \usepackage{hyperref}
 
 % Définition de couleurs
@@ -57,10 +60,6 @@
 \maketitle
 \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%
-%%% Première partie %%%
-%%%%%%%%%%%%%%%%%%%%%%%
-\part{\textcolor{cyan}{Avant de commencer}}
 % Personnalisation en-têtes et pieds de pages
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{1pt}
@@ -69,334 +68,19 @@
 \lhead{\textcolor{cyan}{Chapitre \thechapter}}
 \rhead{\thepage}
 \cfoot{}
-%%%%%%%%%%%%%%%%%%
-%%% Chapitre 1 %%%
-%%%%%%%%%%%%%%%%%%
-\chapter{Apprendre à programmer}
 
-\textit{Python} a l'avantage d'être un langage polyvalent, permettant le développement d'applications de bureau ou pour mobiles, comme le développement Web. Il bénéficie d'une documentation fournie, et de nombreux tutoriels et cours figurent sur le net, dans à peu près toutes les langues. La communauté \textit{Python} est importante et active, ainsi trouver de l'aide en ligne sera aisé. De plus c'est un des langages les plus faciles à apprendre. Au regard de tels avantages, nous pouvons dire que le langage \textit{Python} en fait un très bon langage pour qui veut débuter dans la programmation.
-\medskip
-
-Quand on débute dans l'apprentissage de la programmation il est souvent difficile de se centrer sur les concepts fondamentaux sans s'éparpiller. Un tel apprentissage nécessite donc de la rigueur en évitant de vouloir apprendre trop de choses en même temps. Il est nécessaire de rester centré sur un même concept, un même langage. Par la suite, quand les concepts de base seront maîtrisés avec un langage, il sera plus facile d'apprendre un autre langage, voire de s'orienter vers des concepts plus avancés.
-\medskip
-
-Apprendre à coder implique de s'investir, et donc de coder souvent. Un peu chaque jour et vous mesurerez mieux votre progression. Il faut donc, en même temps que l'on apprend de nouveaux concepts, pratiquer, soit à l'aide d'exercices, soit par le développement de mini projets. Cela va donc nécessiter du temps, jusqu'à plusieurs mois d'apprentissage.
-\medskip
-
-Une fois à l'aise avec l'ensemble des concepts de base, il faudra selon ses appétences se centrer sur un \textit{framework} afin de réaliser des projets concrets et avancés. Et là encore, du temps sera nécessaire. L'apprenti développeur pourra se centrer sur:
-\begin{description}
-    \item[Le \textit{framework Django}]: utilisé pour le développement \textit{WEB}.
-    \item[Le \textit{framework Kivy}]: pour le développement d'applications mobiles et de bureau.
-    \item[La \textit{data science}].
-\end{description}
-%%%%%%%%%%%%%%%%%%
-%%% Chapitre 2 %%%
-%%%%%%%%%%%%%%%%%%
-\chapter{Installons Python et nos outils de développement}
-En plus de l'installation de \textit{Python} lui-même, nous allons nous doter d'environnements de développement tels que \textit{Pycharm}\footnote{https://www.jetbrains.com/pycharm/} (spécialement conçu pour le langage \textit{Python}) et \textit{Visual Studio Code}\footnote{https://code.visualstudio.com/}. Nous verrons aussi comment interagir avec l'interpréteur \texttt{Python} et comment exécuter des scripts via le terminal. Nous présenterons rapidement quelques \textit{IDE} autres que \texttt{Pycharm} et \texttt{VSC}, et notamment l'\texttt{IDLE Python} fournit avec \texttt{Python}. Et nous proposerons quelques outils en ligne, pratiques quand nous voulons coder avec une machine qui ne possède pas d'environnement \texttt{Python}.
-\medskip
-
-\section{\textit{Pycharm}}
-\subsection*{Installation sous \texttt{GNU/Linux}}
-Télécharger l'archive de la version \texttt{Community} de \texttt{Pycharm}. Décompresser l'archive et se rendre dans le répertoire idoine puis dans le répertoire \texttt{bin}. La commande \verb|./pycharm.sh| exécutée depuis ce même répertoire lancera \texttt{Pycharm} (il peut être intéressant de créer un raccourci à partir de cette commande).
-\medskip
-
-\subsection*{Du code en français}
-Après l'installation il sera nécessaire de désactiver l'option \texttt{typo} qui ne reconnaît que l'anglais, et qui signale des erreurs lors de l'emploi de mots dans une autre langue. Même si l'emploi de l'anglais est fortement conseillé quand on code, il faut reconnaître que l'emploi de sa langue d'usage pour les non anglophones aide à la compréhension quand on apprend la programmation (pour l'emploi des noms de variables, de fonctions\footnote{Notions qui seront abordés par la suite}, etc.). Pour ce faire nous allons passer par les étapes suivantes:
-\begin{verbatim}
-    File > Settings > Editor > Inspections
-\end{verbatim}
-Saisir ensuite \texttt{typo} dans la case de recherche, puis décocher la case correspondante à la ligne \texttt{Typo}.
-\medskip
-
-\subsection*{Les raccourcis \textit{Pycharm}:}
-\begin{table}[h]
-\begin{center}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Raccourcis} & \textbf{Résultat} \\
-\hline
-\texttt{[Shift] + [tab]} & Après avoir sélectionné une partie de code, presser ces touches ôte la tabulation s'il y en a une. \\
-\hline
-\texttt{[Ctrl] + [Z]} & A l'inverse de la commande précédente en remettant la tabulation. \\
-\hline
-\end{tabular}
-\caption{Des raccourcis d'édition}
-\end{center}
-
-\end{table}
-\section{\textit{Visual Studio Code}}
-Page de téléchargement: \url{https://code.visualstudio.com/download}. Télécharger le fichier \texttt{.deb}, puis lancer la commande:
-\begin{verbatim}
-    # dpkg -i fichier_telecharge.deb
-\end{verbatim}
-\medskip
-
-\texttt{Visual Studio Code} est alors fonctionnel. Il y a une mise à jour du dépot \texttt{apt} incluant la clé de signature qui se fait automatiquement, permettant une mise à jour de l'IDE  quand une nouvelle version est publiée sur le site de \textit{Microsoft}.
-\medskip
-
-Il peut être intéressant d'y ajouter le package qui permet de franciser \textit{VSCode}: \textit{French language pack}.
-\medskip
-
-Si le message \textit{Linter Pylint Not Install} apparaît, choisir justement de l'installer.
-\medskip
-
-\section{L'interpréteur \texttt{Python}}
-Si \texttt{Python} a été correctement installé, vous devriez automatiquement disposer d'un interpréteur \texttt{Python} qui permet d'utiliser du code de manière interactive.
-\medskip
-
-Pour s'en persuader ouvrons un terminal et exécutons la commande toute simple : \verb|$ python|. L'interpréteur devrait s'ouvrir sur ces lignes:
-\begin{verbatim}
-    Python 3.10.8 (main, Nov  4 2022, 09:21:25) [GCC 12.2.0] on linux
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> 
-\end{verbatim}
-\medskip
-
-Les trois chevrons (\verb|>>>|) nous indiquent que nous sommes alors prêts à saisir du code \texttt{Python}. Essayons une toute première ligne de code avec la commande (fonction) \texttt{print()} qui nous sert à l'affichage:
-\begin{verbatim}
-    >>> print("Hello World!")
-\end{verbatim}
-\medskip
-
-Après avoir taper \texttt{[Entrée]} la ligne suivante affichera le message \texttt{Hello World!}, sans les chevrons. Il s'agit en fait de notre sortie console consécutive à l'exécution du code.
-\medskip
-
-Et si nous avions malencontreusement mal saisi notre instruction, oubliant de les guillemets de fin par exemple:
-\begin{verbatim}
-    >>> print("Hello World!)
-\end{verbatim}
-\medskip
-
-Nous aurions alors droit à une petit message d'avertissement de la part de \texttt{Python}:
-\begin{verbatim}
-    File "<stdin>", line 1
-      print("Hello World!)
-          ^
-    SyntaxError: unterminated string literal (detected at line 1)
-\end{verbatim}
-
-Et pour sortir de l'interpréteur, rien de plus simple avec l'instruction \texttt{exit()}. Et nous voilà à nouveau dans notre terminal.
-\medskip
-
-Entrer des commandes dans l'interpréteur \texttt{Python} de manière interactive est idéal pour tester rapidement et explorer des caractéristiques ou des fonctionnalités. Mais pour des besoins un peu plus élaborer, et surtout pour sauvegarder notre code, nous aurons vire recours aux scripts.
-\medskip
-
-\section{Les scripts \texttt{Python} exécutés depuis le terminal}
-Un script Python est un ensemble de code réutilisable, autrement dit il s'agit d'une séquence d'instructions \texttt{Python} contenue dans un fichier. Les scripts \texttt{Python} se présentent sous la forme de texte brut, ce qui vous permet de les modifier avec n'importe quel éditeur de texte (\texttt{vim} par exemple).
-\medskip
-
-Passons à la pratique:
-\begin{enumerate}
-	\item Créer un fichier portant l'extension \texttt{.py} (\texttt{hello.py} par exemple).
-	\item Y écrire du code \texttt{Python}, comme par exemple, la simple ligne \texttt{python("Hello World!")}).
-	\item Sauvegarder le fichier ainsi modifier.
-	\item L'exécuter depuis l'invite de commande avec la commande \texttt{python} (\verb|$ python hello.py|, pour suivre notre exemple).
-\end{enumerate}
-\medskip
-
-Ce qui nous donnera:
-\begin{verbatim}
-    $ python hello.py
-    Hello World!
-\end{verbatim}
-
-\section{Interagir avec \texttt{Python} via un \textit{IDE}}
-Un environnement de développement intégré (\textit{IDE}) est une application qui combine plus ou moins toutes les fonctionnalités vues précédemment. Un bon \textit{IDE} doit fournir des fonctionnalités intéressantes telles que:
-\begin{itemize}
-	\item[-] La coloration syntaxique du code pour en faciliter la lecture.
-	\item[-] Une aide contextuelle provenant de la documentation connexe ou interne (documentation des fonctions par exemple).
-	\item[-] L'auto-complétion du code qui offre un gain de temps et une aide à la rédaction non négligeables pour le développeur.
-	\item[-] Un bon \textit{IDE} doit aussi proposer un débogueur.
-\end{itemize}
-\medskip
-
-\subsection*{L'\textit{IDLE} \texttt{Python}}
-La plupart des installations \texttt{Python} contiennent un \textit{IDE} rudimentaire appelé \textit{IDLE}, pour \og \textit{Integrated Development and Learning Environment}\fg{} (que l'on peut traduire par \og environnement intégré de développement et d'apprentissage\fg{}).
-\medskip
-
-Installation sous \textit{GNU/Linux}: 
-\begin{verbatim}
-    # aptitude install idle3 idle-python3.[num_version]
-\end{verbatim}
-\medskip
- 
-Lancement:
-\begin{verbatim}
-   $ idle
-\end{verbatim}
-\medskip
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.4]{IMG/IDLE-01.png}
-\caption{Lancement de l'\textit{IDLE} \texttt{Python}}
-\end{center}
-\end{figure}
-\medskip
-
-A la suite du prompt figuré par les trois chevrons, nous pouvons alors saisir du code \texttt{Python} de façon interactive. L'interface \textit{IDLE} ajoute l'avantage d'afficher les différents éléments syntaxiques dans des couleurs distinctes pour rendre les choses plus lisibles. Une aide contextuelle est aussi fournie.
-\medskip
-
-Une autre fonctionnalité intéressante de l'\textit{IDLE} est le rappel des instructions. Les touches \texttt{[Alt] + [p]} (revenir en arrière) et \texttt{[Alt] + [n]} (avancer) permettent de naviguer dans l'historique de saisie des instructions \texttt{Python}.
-\medskip
-
-L'\textit{IDLE} \texttt{Python} permet de créer des scripts \texttt{Python} et de travailler directement avec. Pour cela:
-\begin{verbatim}
-    File  --> New file
-\end{verbatim}
-\medskip
-
-Une fois votre script enregistré vous pouvez l'exécuter via:
-\begin{verbatim}
-    Run --> Run Module
-\end{verbatim}
-\medskip
-
-La sortie apparaît alors dans la fenêtre shell dans l'interpréteur.
-\medskip
-
-Pour mieux connaître l'ensemble des fonctionnalités de l'\textit{IDLE} se reporter à la documentation officielle : \url{https://docs.python.org/fr/3/library/idle.html}
-\medskip
-
-\subsection*{\texttt{Thonny} un \textit{IDE} pour \texttt{Python}}
-\texttt{Thonny} est un \textit{IDE} \texttt{Python} gratuit développé et maintenu par l'Institut d'informatique de l'Université de Tartu, en Estonie. Il s'adresse spécifiquement aux débutants en \texttt{Python}, de sorte que l'interface est simple et épurée et qu'il est facile de la comprendre et de s'y habituer rapidement.
-\medskip
-
-Site officiel : \url{https://thonny.org/}
-\medskip
-
-\section{Les outils en ligne}
-Pour s'exercer à coder depuis n'importe quel ordinateur, où \textit{Python} n'est peut-être pas installé, il est possible de faire appel à des outils en ligne tels que la console interactive du site officiel\footnote{\url{https://www.python.org/shell/}}, \textit{Python Cloud IDE}\footnote{\url{http://pythonfiddle.com/}}, \textit{replit.com}\footnote{\url{www.replit.com}} ou \textit{trinket}\footnote{\url{https://trinket.io/}} qui nous permettent d'écrire du code depuis un navigateur Internet. Si cela peut s'avérer pratique, on ne pourra toutefois pas utiliser des outils avancés.
-\medskip
-
-\section{\texttt{Jupyter Notebook}}
-\texttt{Jupyter Notebook} est une application \textit{web} qui permet de stocker des lignes de code \texttt{Python}, le résultat de l'exécution du code (notamment des graphiques, tableaux, etc.), ainsi que du texte formaté. Elle offre donc la possibilité d'écrire des petits bouts de code exécutables (insérés dans ce que l'on appelle des \textit{cellules}), de les documenter et d'afficher la résultat de l'exécution. Tout cela est ensuite stocké dans un document partageable. C'est une application fréquemment utilisée par ceux qui travaillent dans l'analyse de données.
-\medskip
-
-Installation:
-\begin{verbatim}
-    # aptitude install jupyter-notebook
-\end{verbatim}
-\medskip
-
-\texttt{Jupyter Notebook} s'ouvre dans un \textit{navigateur}. Pour créer un \textit{notebook}:
-\begin{enumerate}
-	\item Cliquer sur \texttt{Nouveau}.
-	\item Puis sur \texttt{Python3} (Un nouvel onglet est alors ouvert)
-	\item Saisir du code \texttt{Python} dans une \textit{cellule}, puis lancer \texttt{Exécuter}.
-\end{enumerate}
-\medskip
-
-Il existe quatre types de \textit{cellules}: 
-\begin{description}
-	\item[\texttt{Code}]: \textit{cellule} qui permet d'insérer du code \texttt{Python}.
-	\item[\texttt{Heading}]: type devenu obsolète dans la mesure car avec le type \texttt{markdown} il est beaucoup plus aisé d'insérer des titres.
-	\item[\texttt{Text Brut} (pour \texttt{NbConvert}]: permet de contrôler le formatage du document lors d'une conversion du \textit{notebook} en un autre format.
-	\item[\texttt{Markdown}]: permet la documentation du \textit{notebook} à l'aide de \textit{balises} \texttt{HTML} ou de la syntaxe \texttt{markdown}\footnote{Pour la syntaxe \texttt{markdown} voir: \url{https://stacklima.com/cellule-markdown-dans-le-bloc-notes- jupyter/}}.
-\end{description}
-\medskip
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% Première partie %%%
+%%%%%%%%%%%%%%%%%%%%%%%
+\part{\textcolor{cyan}{Avant de commencer}}
+\include{PART1/chapter1}
+\include{PART1/chapter2}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% Deuxième partie %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 \part{\textcolor{cyan}{Premiers pas en \textit{Python}: notions de base}}
-
-%%%%%%%%%%%%%%%%%%
-%%% Chapitre 1 %%%
-%%%%%%%%%%%%%%%%%%
-\chapter{Comment cela fonctionne-t-il ?}
-\section{Des concepts de base en programmation}
-Nous allons progressivement voir et détailler les notions de \textit{variables}, \textit{fonctions}, \textit{boucles}, \textit{conditions} et \textit{algorithmie}. Il s'agit des notions essentielles de base, communes à tous les langages de programmation.
-\medskip
-
-Nous pouvons établir une similitude avec la recette de cuisine puisque le développeur, en codant, va finalement écrire une recette. L'ordinateur, à l'instar du cuisinier qui va réaliser la recette de cuisine, sera ensuite à exécuter ce code. Si ce code est bien écrit, alors l'ordinateur va l'exécuter sans difficulté, et le rendu de cette exécution sera celui voulu par le développeur. Au contraire, si le code comporte des erreurs, on dit alors qu'il contient des \textit{bugs} et le rôle du développeur va consister à \textit{déboguer} en analysant le code source, c'est-à-dire à en comprendre les erreurs. Il peut, pour être aidé dans sa tâche, faire appel à un \textit{debugger}, logiciel destiné à investiguer le code en vue de retrouver les erreurs.
-\medskip
-
-\section{Les variables}
-Une variable est un nom (une étiquette) que l'on associe à une objet. On va alors dire que l'on affecte une valeur à une variable.
-\medskip
-
-Exemple:
-\begin{verbatim}
-    beurre = 50 (Pour des nombres)
-    ingredient1 = "lait" (Pour des caractères)
-    variable = valeur (syntaxe générale)
-\end{verbatim}
-\medskip
-
-\section{Les fonctions}
-En programmation, une fonction est un bloc de code autonome qui encapsule une tâche spécifique ou un groupe de tâches connexes. Les fonctions vont donc nous permettre de représenter un certain nombre d'actions, et vont aussi nous permettre de mieux structurer et organiser le code.
-\medskip
-
-Les fonctions sont capables de retourner (mot clé \texttt{return}) un résultat (une valeur par exemple) que l'on peut ensuite affecter à une variable.
-\medskip
-
-\section{Les conditions}
-Les conditions, les boucles (cf. infra), mais aussi les fonctions ou les gestions d'erreurs, forment ce que l'on nomme en programmation (notamment utilisées en programmation impérative) les \textit{structures de contrôle}. Les conditions permettent de réaliser des sauts conditionnels en proposant un branchement si une condition est vérifiée. Si la condition n'est pas vérifiée, l'exécution se poursuit séquentiellement. La condition est parfois appelée « condition de rupture » puisqu'elle implique en général une rupture dans le flot d'exécution lorsque la condition est vérifiée. 
-\medskip
-
-En \texttt{Python} les conditions fournissent le résultat de l'évaluation d'une expression. Les jeux de \textit{structures de contrôle} que l'on rencontre dans le langage \texttt{Python} sont basés sur des blocs d'instruction balisés par l'indentation, forme syntaxique qui n'utilise pas de mots clés ou de symboles de ponctuation, comme nous pouvons le rencontrer avec d'autres langages de programmation.
-\begin{verbatim}
-    Si...
-        alors...
-    Sinon...
-\end{verbatim}
-\medskip
-
-Exemple avec une recette de cuisine:
-\begin{verbatim}
-    Si j'ai de la crème
-        Alors j'ajoute de la crème
-    Sinon
-        Je n'ajoute pas de crème
-\end{verbatim}
-\medskip
-
-Mots clés en programmation pour exprimer les conditions: \texttt{if} (\og \textit{si} \fg{})  et \texttt{else} (\og \textit{sinon} \fg{}).
-\medskip
-
-Ainsi, il est possible de réaliser divers tests qui viennent conditionner l'exécution du programme:
-\begin{description}
-	\item[Le test \og \textit{si} \fg{}]:
-	\begin{verbatim}
-	    if condition : 
-	        instruction
-	\end{verbatim}
-	\item[Test \og \textit{si sinon} \fg{}]:
-	\begin{verbatim}
-	    if condition : 
-	        instruction 1
-	    else:
-	        instruction 2
-	\end{verbatim}
-	\item[Test \og \textit{sinon si} \fg{}]:
-	\begin{verbatim}
-	    if condition : 
-	        instruction 1
-	    elif autre condition:
-	        instruction 2
-	    instruction 3
-	 \end{verbatim}
-	 \item[Test \og \textit{selon} \fg{}]: en \texttt{Python} cela est possible à partir de la version \texttt{10}, introduit sous le nom \texttt{match case} (cf. le chapitre dédiée aux structures conditionnelles).
-\end{description} 
-
-\section{Les boucles}
-Une boucle est une structure de contrôle destinée à exécuter une portion de code plusieurs fois de suite.
-\begin{verbatim}
-    Faire n fois:
-        mon action
-\end{verbatim}
-\medskip
-
-En programmation on rencontre des boucles \texttt{for} et des boucles \texttt{while}.
-\bigskip
-
-\section{Algorithmie (ou \og façon de faire \fg{})}
-\medskip
-
-\section{Les objets et la programmation orientée objet (\textit{POO)}}
-\medskip
+\include{PART2/chapter1}
 
 %%%%%%%%%%%%%%%%%%
 %%% Chapitre 2 %%%
@@ -484,176 +168,7 @@ Dans un programme la lecture des lignes de code est séquentielle, un ordre est 
 Maintenant que nous avons notre premier fichier, nous allons pouvoir entrer dans le coeur du langage \textit{Python} en commençant par aborder les concepts de base.
 \medskip
 
-%%%%%%%%%%%%%%%%%%
-%%% Chapitre 3 %%%
-%%%%%%%%%%%%%%%%%%
-\chapter{Les variables}
-\section{Une rapide introduction}
-\subsection*{Affectation d'une valeur à une variable}
-Insérons la ligne suivante dans notre fichier \texttt{main.py}:
-\begin{verbatim}
-    nom_de_la_personne = "Krystof"
-\end{verbatim}
-\medskip
-
-A son exécution, rien ne se passe, et pourtant nous venons de créer une nouvelle variable \\(\texttt{nom\_de\_la\_personne}) de type \textit{chaîne de caractères} et qui prend comme valeur la chaîne \texttt{Krystof}. Nous venons donc de stocker la valeur dans la variable. Et dorénavant nous pourrons faire référence à cette variable dès que nous en aurons besoin dans notre code. Une variable doit toujours être définie avant d'être utilisée.
-\medskip
-
-Affichons la valeur de notre variable en ajoutant la ligne suivante:
-\begin{verbatim}
-    print(nom_de_la_personne)
-\end{verbatim}
-\medskip
-
-Nous pouvons ajouter du texte à cela par une concaténation:
-\begin{verbatim}
-    print("Bonjour " + nom_de_la_personne)
-\end{verbatim}
-En \textit{Python}, le symbole \texttt{+} utilisé avec des chaînes de caractères permet donc la concaténation.
-\medskip
-
-Il est aussi possible d'afficher de manières successive (avec un espace) les paramètres de la fonction \textit{print()} à l'aide d'une virgule, mais cela n'est pas de la concaténation:
-\begin{verbatim}
-    print("Bonjour", nom_de_la_personne)
-\end{verbatim}
-\medskip
-
-Notre code est maintenant composé des deux lignes suivantes:
-\begin{lstlisting}
-	nom_de_la_personne = "Krystof"
-	print("Bonjour " + nom_de_la_personne)
-\end{lstlisting}
-\medskip
-
-Le résultat une fois ce code exécuté sera:
-\begin{verbatim}
-    Bonjour Krystof
-\end{verbatim}
-\medskip
-
-\subsection*{L'évolution d'une variable}
-Une variable peut se voir réaffecter une valeur selon le principe suivant:
-\begin{description}
-	\item[\texttt{n = "Krystof"}]: Création de la variable.
-	\item[\texttt{n = "Paul"}]: Réaffectation de la variable. On lui donne simplement une autre valeur.
-\end{description}
-\medskip
-
-\section{Demander des données à l'utilisateur}
-Nous allons réaliser cela à l'aide de la fonction \texttt{input()}. Cette fonction a pour but de retourner une valeur que nous pouvons stocker dans une variable:
-\begin{verbatim}
-    reponse = input("Quel est votre nom ? ")
-\end{verbatim}
-\begin{description}
-    \item[reponse] = variable
-    \item[input()] = fonction
-    \item["Quel est votre nom ? "] = paramètre
-\end{description}
-\medskip
-
-Revenons à notre code qui devient celui-ci:
-\begin{lstlisting}
-    nom_de_la_personne = input("Quel est votre nom ? ")
-    print("Bonjour " + nom_de_la_personne)
-\end{lstlisting}
-\medskip
-
-A la question posée, on saisit un nom:
-\begin{verbatim}
-    Quel est votre nom ? Krystof [Entrée]
-    Bonjour Krystof
-\end{verbatim}
-\medskip
-
-\section{Autres types de variables}
-\begin{verbatim}
-    age = 30
-\end{verbatim}
-\medskip
-
-Nous venons d'affecter la valeur \texttt{30} à la variable \texttt{age} qui par conséquent devient une variable de type numérique, à la différence de si nous avions codé \verb|age = "30"| où du coup la variable \texttt{age} aurait été de type chaîne de caractères.
-\medskip
-
-Il existe une fonction \texttt{type()} qui permet d'indiquer le type d'une variable.
-\begin{lstlisting}
-    nom = "Krystof"
-    age = 30
-    print(type(nom))
-    print(type(age))
-\end{lstlisting}
-\medskip
-
-Ce qui donne en sortie:
-\begin{verbatim}
-    <class 'str'>
-    <class 'int'>
-\end{verbatim}
-\medskip
-
-Nous reviendrons plus tard sur la notions de \textit{classe}. Ce qu'il faut retenir ici c'est que la première variable est identifiée comme \texttt{str} (abréviation de \textit{string} qui veut dire \og chaîne de caractères\fg), et la seconde est identifiée comme \texttt{int} (abréviation de \textit{integer} qui veut dire \og nombre entier\fg).
-\medskip
-
-Comme autres valeurs numériques, nous avons les nombres décimaux (de type \texttt{float}), et les booléens dont les valeurs ne peuvent être que \texttt{True} (pour \og vrai \fg, de valeur \texttt{1}) et \texttt{False} (pour \og Faux \fg, de valeur \texttt{0}).
-\medskip
-  
-On ne peut concaténer une chaîne de caractères avec une valeur numérique. Nous aurions alors une erreur de type \texttt{TypeError}. Pour réaliser une telle opération il va nous falloir convertir notre valeur numérique en valeur de type chaîne de caractères. Nous allons utiliser la fonction \texttt{str()}:
-\begin{lstlisting}
-    age = 30
-    print("Notre texte..." + str(age))
-\end{lstlisting}
-\medskip
-
-La conversion peut aussi se réaliser dans l'autre sens avec la fonction \texttt{int()}.
-\begin{lstlisting}[caption=Conversion avec la fonction \texttt{int}]
-	age = "30"
-	ageX2 = int(age) * 2
-	print(ageX2)
-\end{lstlisting}
-\medskip
-
-Dans le cas présent cela nous affiche \texttt{60}\footnote{Nous n'avons pas encore vu les calculs en \textit{Python}, mais comme vous pouvez le voir sur l'exemple le symbole \texttt{*} correspond au signe de multiplication.}. Par contre si la variable age ne contenait pas une valeur numérique (Si elle avait contenu la valeur \texttt{\og trente \fg} par exemple) nous aurions eu alors une erreur de type \texttt{ValueError}\footnote{Nous reviendrons plus loin sur les erreurs et les types d'erreurs}.
-\medskip
-
-En \textit{Python}, les variables peuvent changer de type, ce qui n'est pas possible avec d'autres langages de programmation (Exemple: langage \textit{C}). Mais une telle manipulation est déconseillée. On va alors plutôt faire appel à une autre variable. Il est donc préférable de faire:
-\begin{verbatim}
-    age_int = int(age)
-\end{verbatim}
-\medskip
-
-... plutôt que:
-\begin{verbatim}
-    age = age(int)
-\end{verbatim}
-\medskip
-
-\subsection*{L'incrémentation d'une variable numérique}
-\begin{lstlisting}[caption=Principe de l'incrémentation]
-    nbre = 0
-    nbre = nbre + 1  # on ajoute 1 à la valeur de la variable
-    nbre += 1  # Autre méthode d'incrémentation
-\end{lstlisting}
-\medskip
-
-\subsection*{La variable de type \texttt{float}}
-Il s'agit d'une valeur numérique décimale.
-\begin{lstlisting}
-  var = 1.75
-  print(type(var))
-\end{lstlisting}
-\medskip
-
-Ce qui donne en sortie:
-\begin{verbatim}
-    <class 'float'>
-\end{verbatim}
-\medskip
-
-\section{Les constantes}
-En \textit{Python} les variables constantes n'existent pas, mais par convention on va utiliser un nom de variable en lettres majuscules pour indiquer que nous souhaitons utiliser cette variable comme constante, c'est-à-dire que l'on en souhaite pas que sa valeur soit modifiée.
-\begin{verbatim}
-    MA_CONSTANTE = 100  # Par exemple
-\end{verbatim}
-\medskip
+\include{PART2/chapter3}
 
 %%%%%%%%%%%%%%%%%%
 %%% Chapitre 4 %%%
@@ -966,6 +481,11 @@ Grâce au bouton \textit{Pas à pas principal}.
 \end{figure}
 \medskip
 
+\include{PART2/chapter8}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PART 2 - Chapitre 9 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Les fonctions}
 \section{Quel est l'intérêt des fonctions ?}
 Les \textit{fonctions} sont fondamentales en programmation. Elles sont des éléments clés qui vont nous permettre de structurer notre code et d'en améliorer la qualité, en évitant d'avoir recourt à des répétitions de code\footnote{En pratique un projet (ou programme) va contenir une fonction principale (\texttt{def main()}) qui va, comme son nom l'indique contenir le code principal, et c'est à partir de cette fonction principale que seront appelées la plupart des autres fonctions.}. Ce sont des objets dits \textit{callables} (\og \textit{appelables}\fg{} pourrait-on traduire) qui sont associés à des actions. Pratiquement tous les langages de programmation utilisés aujourd'hui prennent en charge des fonctions définies par l'utilisateur, même si elles ne sont pas toujours appelées fonctions. Dans d'autres langages, elles peuvent être désignées par l'un des termes suivants : \textit{sous-routines} (\textit{subroutines}), \textit{procédures} (\textit{procedures}), \textit{méthodes} (\textit{methods}), \textit{sous-programmes} (\textit{subprograms}).
@@ -2324,6 +1844,17 @@ True
 \end{description}
 \medskip
 
+\section{Fonctions intégrées pour les chaînes de caractères}
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\textbf{Fonctions} & \textbf{Description} \\
+\hline
+\end{tabular}
+\caption{Les fonctions intégrées}\label{function_str}
+\end{center}
+\end{table}
 \section{Préfixes et suffixes d'une chaîne de caractères}
 \subsection*{La méthode \texttt{strip()}}
 Par défaut la fonction \texttt{strip()} supprime les espaces situés en fin et en début de chaîne.
@@ -6036,12 +5567,12 @@ Les \textit{linters} sont des programmes qui analysent le code et signalent les 
 \medskip
 
 \subsection*{Les outils de formatage automatique}
-On retrouve ce type d'outils sous forme de programmes qui refactorisent automatiquement votre code pour le rendre conforme à la \texttt{PEP 8}, comme par exemple le programme \textit{black}. Sur la page du projet\footnote{\url{https://pypi.org/project/black/}} il est dit que \textit{black} \og \textit{rend la révison du code plus rapide}\fg{}.
+On retrouve ce type d'outils sous forme de programmes qui refactorisent automatiquement votre code pour le rendre conforme à la \texttt{PEP 8}, comme par exemple le programme \textit{black}. Sur la page du projet\footnote{\url{https://pypi.org/project/black/}} il est dit que \textit{black} \og \textit{rend la révison du code plus rapide}\fg{}. \textit{black} formate en fait le code selon la norme \texttt{PEP8} tout en possédant sa propre identité stylistique.
 \medskip
 
-Installation de \textit{black} de façon globale sur le système:
+Installation de \textit{black}:
 \begin{verbatim}
-    $ pip install black
+    $ pip3 install black
 \end{verbatim}
 \medskip
 
@@ -6053,8 +5584,15 @@ Utilisation (s'utilise en ligne de commandes):
 \end{verbatim}
 \medskip
 
+Ou bien comme s'il s'agissait d'un module:
+\begin{verbatim}
+    $ python3 -m black mon_code.py
+    reformatted mon_code.py
+    All done!
+\end{verbatim}
+\medskip
 
-Par défaut \textit{black} limite la longueur des lignes à 88 caractères, au lieu de 79, mais nous pouvons modifier un tel comportement avec l'option \verb|--line-length flag|:
+Par défaut \textit{black} limite la longueur des lignes à 88 caractères, au lieu de 79, mais nous pouvons modifier un tel comportement avec l'option \verb|--line-length flag|\footnote{Se reporter à la page de la documentation officielle pour appréhender l'ensemble des options disponibles avec \textit{black}: \url{https://black.readthedocs.io/en/stable/index.html}}:
 \begin{verbatim}
     $ black --line-length=79 mon_code.py
     reformatted mon_code.py
@@ -7664,7 +7202,8 @@ turtle.done()
 \end{lstlisting}
 \medskip
 
-\part{Une bibliothèque riche et dense}
+\part{\textcolor{cyan}{Une bibliothèque riche et dense}}
+
 \chapter{Générer des données aléatoires avec le module \texttt{random}}
 
 \section{Les \textit{PRNGs} en \textit{Python}}
@@ -8176,6 +7715,43 @@ Une ancre indique un emplacement particulier dans la chaîne de recherche où un
 \medskip
 
 \subsubsection*{Ancrer une correspondance au début d'une <\textit{string}> (\texttt{\^} et \texttt{\textbackslash{}A})}
+
+\part{\textcolor{cyan}{Et pour aller encore plus loin...}}
+\chapter{La science des données et le langage \textit{Python} : Un duo puissant}
+\section{La science des données}
+La science des données\footnote{Les liens suivants développent davatange ce que recouvre la science des données : \url{https://fr.wikipedia.org/wiki/Science_des_donn\%C3\%A9es}, \url{https://datascientest.com/big-data-tout-savoir}} est à la fois la science de l'analyse, de l'interprétation et de l'utilisation de vastes ensembles de données pour en extraire 
+des informations significatives, autrement dit de transformer toute une masse de données en connaissances exploitables. C'est une discipline 
+multidisciplinaire qui associe la statistique et l'informatique. Cette exploration des données s'effectue grâce à divers outils, des algorithmes et des 
+techniques qui permettent de concevoir des modèles et/ou des prévisions. 
+\medskip
+
+Cette analyse et exploitation des données se réalise en plusieurs phases :
+\begin{description}
+	\item[La collecte et la préparation:] Il s'agit de rassembler et nettoyer les données pour les rendre exploitables.
+	\item[L'Analyse et la modélisation:] On va pour ce faire utiliser des méthodes statistiques et algorithmiques pour analyser les données, 
+détecter des modèles et ainsi créer des modèles prédictifs.
+	\item[La visualisation et la communication:] A partir de là il s'agira de représenter visuellement les résultats pour assurer une compréhension aisée 
+et afin d'apporter une aide aux éventuelles prises de décision.
+\end{description}
+\medskip
+
+\section{En quoi le langage \textit{Python} est-il adapté à la science des données}
+Grâce à la richesse de ses bibliothèques dédiées\footnote{Vingt bibliothèques \textit{Python} incontournables pour la science des données en 2024: \url{https://www.simplilearn.com/top-python-libraries-for-data-science-article} (Ressource en anglais)}, le langage \textit{Python} s'est imposé comme le choix prédominant pour la science des données. Des outils tels que \textit{NumPy}, \textit{Pandas}, \textit{Matplotlib} et \textit{Scikit-learn} offrent des fonctionnalités avancées pour la manipulation, l'analyse, la visualisation des données, et offre des perspectives intéressantes pour le \textit{machine learning}. En raison de sa syntaxe aisément compréhensible \textit{Python} facilite les implémentations nécessaires dans le domaine de la sciences des données. A cela il faut ajouter son support communautaire (solide et actif), sa documentation étendue et ses nombreuses ressources d'apprentissage, qui favorisent une rapide intégration de l'ensemble des outils et renforce la collaboration entre les équipes.
+\medskip
+
+\section{La bibliothèque \textit{Pandas}}
+Il s'agit d'une bibliothèque \textit{open source} construite sur la bibliothèque \textit{NumPy} qui permet d'analyser des données. Elle propose des structures de données ainsi que diverses opérations permettant de manipuler des données numériques et des séries chronologiques.
+\medskip
+
+\textit{Pandas} est plutôt bien adaptée pour travailler avec des données tabulaires (feuilles de calcul ou tables \textit{SQL}). Construite au-dessus de \textit{NumPy} de nombreuses structures \textit{NumPy} sont utilisées ou répliquées dans \textit{Pandas}. Les données produites par \textit{Pandas} sont utilisables en entrées pour les fonctions de traçage de la bibliothèque \textit{Matplotlib}, pour l'analyse statistique avec la bibliothèque \textit{Scipy} et pour les algorithmes d'apprentissage avec la bibliothèque \textit{Scikit-learn}.
+\medskip
+
+\subsection*{Quelques ressources Internet consacrées à \textit{Pandas}}
+\begin{description}
+	\item[Tutoriel \textit{Pandas} par \textit{geeksforgeeks}]: \url{https://www.geeksforgeeks.org/pandas-tutorial/?ref=shm}
+	\item[La documentation \textit{Pandas}]: \url{https://pandas.pydata.org/docs/}
+\end{description}
+\medskip
 
 \end{document}
 
