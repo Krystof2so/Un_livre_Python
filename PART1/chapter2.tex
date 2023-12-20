@@ -36,6 +36,11 @@ Saisir ensuite \texttt{typo} dans la case de recherche, puis décocher la case c
 
 \end{table}
 \section{\textit{Visual Studio Code}}
+\subsection*{Un éditeur de code léger mais également un puissant \textit{IDE}}
+\texttt{Visual Studio Code}\footnote{\url{code.visualstudio.com}}, communément appelé \texttt{VSCode}, est un éditeur de code \textit{open source} développé par \texttt{Microsoft}, léger et disponible sur toutes les plateformes, qu'il est possible de configurer en un environnement de développement intégré (\textit{IDE}) à l'aide d'extensions. Bien configuré, \texttt{VSCode} peut s'avérer être un outil puissant pour développer en \textit{Python}\footnote{Attention à ne pas confondre \texttt{VSCode} et \texttt{VisualStudio}, également développé par \texttt{Microsoft}}. Il prend en charge plusieurs langages avec une foule d'extensions. A noter que \texttt{VSCode} est mis à jour mensuellement.
+\medskip
+
+\subsection*{Installation}
 Page de téléchargement: \url{https://code.visualstudio.com/download}. Télécharger le fichier \texttt{.deb}, puis lancer la commande:
 \begin{verbatim}
     # dpkg -i fichier_telecharge.deb
@@ -49,6 +54,28 @@ Il peut être intéressant d'y ajouter le package qui permet de franciser \texti
 \medskip
 
 Si le message \textit{Linter Pylint Not Install} apparaît, choisir justement de l'installer.
+\medskip
+
+Pour ce qui est de la découverte de l'interface, la documentation officielle offre une bonne entrée en matière\footnote{\url{https://code.visualstudio.com/docs/getstarted/userinterface}}. Sur \texttt{YouTube} il est aisé de trouver une multitude de vidéos présentant l'éditeur. Comme avec d'autres éditeurs on retrouve divers raccourcis clavier, la personnalisation des thèmes et des packs de langue.
+\medskip
+
+\subsection*{\texttt{Python}: une extension incontournable}
+Pour développer en \textit{Python} avec \texttt{VSCode}, l'extension \texttt{Python}\footnote{Sur le \textit{marketplace}: \texttt{marketplace.visualstudio.com/items?itemName=ms-python.python} - Page \texttt{GitHub}: \url{github.com/microsoft/vscode-python/tree/main}} se révèle indispensable car elle possède les fonctionnalités suivantes :
+\begin{itemize}
+	\item[\textbullet] La complétude du code avec \texttt{IntelliSence}.
+	\item[\textbullet] Le \textit{linting}.
+	\item[\textbullet] La prise en charge du débogage (y compris avec \texttt{Django} et \texttt{Flask}).
+	\item[\textbullet] La définition de \textit{snippets}.
+	\item[\textbullet] La prise en charge des tests unittaires.
+	\item[\textbullet] L'utilisation d'environnements virtuels.
+	\item[\textbullet] L'édition dans des environnements \texttt{Jupyter Notebooks}.
+\end{itemize}
+\medskip
+
+Par défaut c'est le formatage \texttt{PEP8} qui est pris en charge, mais il est possible de sélectionner celui de \texttt{black} ou \texttt{yapf}. Pour ce qui est des \textit{linters} pris en charge nous pouvons citer: \texttt{pylint}, \texttt{flake8}, \texttt{mypy}, \texttt{pydocstyle}, \texttt{pep8}, \texttt{prospector}, \texttt{pyllamu} et \texttt{bandit}.
+\medskip
+
+Une autre extension intéressante à installer, mais qui est n'a rien à voir directement avec la langage \textit{Python}, est \texttt{GitLens}\footnote{\url{https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens}}, qui fournit des fonctionnalités \texttt{Git}.
 \medskip
 
 \section{L'interpréteur \texttt{Python}}
@@ -206,3 +233,8 @@ Il existe quatre types de \textit{cellules}:
 	\item[\texttt{Markdown}]: permet la documentation du \textit{notebook} à l'aide de \textit{balises} \texttt{HTML} ou de la syntaxe \texttt{markdown}\footnote{Pour la syntaxe \texttt{markdown} voir: \url{https://stacklima.com/cellule-markdown-dans-le-bloc-notes- jupyter/}}.
 \end{description}
 \medskip
+
+\section*{Sources utilisées pour la rédaction de ce chapitre}
+\begin{itemize}
+	\item[-] \textit{Python Development in Visual Studio Code} (trad. \textit{Développement \textit{Python} avec \texttt{Visual Studio Code}} - Jon \textsc{Fincher} - 4 février 2029 - \url{https://realpython.com/python-development-visual-studio-code/} 
+\end{itemize}
