@@ -81,93 +81,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 \part{\textcolor{cyan}{Premiers pas en \textit{Python}: notions de base}}
 \include{PART2/chapter1}
-
-%%%%%%%%%%%%%%%%%%
-%%% Chapitre 2 %%%
-%%%%%%%%%%%%%%%%%%
-\chapter{Un premier projet à l'aide d'un \textit{IDE}}
-Tout projet \textit{Python} possède la même structure commune de base:
-\begin{verbatim}
-    - Répertoire (nom du projet)
-          |
-          |
-          ---- Fichier principal (main.py)
-\end{verbatim}
-\medskip
-
-Plus le projet est important, plus il contiendra de sous répertoires et fichiers (nous verrons cela en temps voulu).
-\medskip
-
-\section{Avec \textit{Pycharm}}
-Au lancement de \textit{Pycharm} on sélectionne \texttt{New Project}.
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.3]{IMG/Pycharm-01.png}
-\caption{Nouveau projet avec \textit{Pycharm}}
-\end{center}
-\end{figure}
-\medskip
-
-Puis dans la fenêtre qui s'ouvre on va spécifier le répertoire du projet (\texttt{Location}) et l'interpréteur \textit{Python} que l'on va utiliser (\texttt{Base interpreter}). Ensuite, cliquer sur \texttt{Create}. Pour le reste on ne s'en occupe pas pour le moment.
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.25]{IMG/Pycharm-02.png}
-\caption{Création du projet avec \textit{Pycharm}}
-\end{center}
-\end{figure}
-\medskip
-
-Pour créer le premier fichier (notre \texttt{main.py}), faire un clic droit sur le nom du projet qui se situe dans le panneau de gauche (panneau \textit{project}). Sélectionner:
-\begin{verbatim}
-    New > Python File
-\end{verbatim} 
-Et nommer ce fichier \texttt{main}.
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.5]{IMG/Pycharm-03.png}
-\caption{Premier fichier d'un projet avec \textit{Pycharm}}
-\end{center}
-\end{figure}
-\medskip
-
-Pour illustrer l'exécution du code avec \textit{Pycharm} nous allons tout d'abord insérer la ligne suivante dans le fichier \texttt{main.py}\footnote{\texttt{print()} est une fonction et \texttt{"Bonjour"} son paramètre.}:
-\begin{verbatim}
-    print("Bonjour")
-\end{verbatim}
-\medskip
-
-La première fois que l'on lance un programme avec \textit{Pycharm} il faut faire un clic droit sur le panneau de l'éditeur, sélectionner dans le menu déroulant qui s'affiche \texttt{Run "main"}. Cette première fois permet à \textit{Pycharm} de créer une configuration que nous pourrons alors utiliser pour les prochaines exécutions du code, à l'aide du bouton \texttt{Run} en haut à gauche de l'\textit{IDE}.
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.5]{IMG/Pycharm-04.png}
-\caption{Lancement du programme avec la touche \texttt{Run}.}
-\end{center}
-\end{figure}
-\medskip
-
-S'ouvre alors le panneau d'exécution du code (panneau \textit{Run}) en bas de l'interface \textit{Pycharm} dans lequel on voit le résultat de notre programme précédé d'une ligne du type:
-\begin{verbatim}
-    ~/.virtualenvs/Premier_programme/bin/python  ~/Premier_
-    programme/main.py
-\end{verbatim}
-\verb|~/.virtualenvs/Premier_programme/bin/python| représente l'interpréteur auquel nous faisons appel et \verb|~/Premier_programme/main.py| le fichier du code qui sera exécuté.
-medskip
-
-\section{Avec \textit{Visual Studio Code}}
-Avec \textit{VSC} nous ne sommes pas obligés d'en passer par la création d'un projet. Si le projet ne doit contenir qu'un unique fichier, il peut être en effet plus simple et plus léger d'en passer par cet \textit{IDE}. Pour cela:
-\begin{verbatim}
-    Fichier > Nouveau fichier > Enregistrer sous
-\end{verbatim}
-On doit alors choisir le répertoire et donner un nom au fichier qui doit porter l'extension \texttt{.py}.
-\medskip
-
-\section{L'exécution du code}
-Dans un programme la lecture des lignes de code est séquentielle, un ordre est donc suivi. 
-\medskip
-
-Maintenant que nous avons notre premier fichier, nous allons pouvoir entrer dans le coeur du langage \textit{Python} en commençant par aborder les concepts de base.
-\medskip
-
+\include{PART2/chapter2}
 \include{PART2/chapter3}
 
 %%%%%%%%%%%%%%%%%%
@@ -1897,6 +1811,169 @@ print(p.removesuffix("chaine"))
 print(p.removeprefix("ceci"))
 # Pour supprimer 'ceci' et 'chaine':
 print(p.removeprefix("ceci").removesuffix("chaine"))
+\end{lstlisting}
+\medskip
+
+\section{Le formatage des chaînes de caractères}
+Pour illustrer diverses méthodes de formatage de chaînes de caractères, nous pouvons tester le script suivant:
+\begin{lstlisting}
+"""Voici divers exemples de formatage de 
+chaînes de caractères."""
+print("\nEXEMPLES DE FORMATAGE:\n" + "-" * 20)
+# Accéder à un argument par sa position :
+print('{0}, {1}, {2}'.format('un', 'deux', 'trois'))
+# En sortie ==> 'un, deux, trois'
+print('{}, {}, {}'.format('un', 'deux', 'trois'))
+# En sortie ==> 'un, deux, trois'
+print('{2}, {1}, {0}'.format('un', 'deux', 'trois'))
+# En sortie ==> 'trois, deux, un'
+liste_chiffres = ['un', 'deux', 'trois']
+# Avec l'unpacking :
+print('{2}, {1}, {0}'.format(*liste_chiffres)) 
+# En sortie ==> 'trois, deux, un'
+# Les indices peuvent être répétés :
+print('{0}, {1}, {0}'.format('un', 'deux'))  
+# En sortie ==> 'un, deux, un'
+
+# Accéder à un argument par son nom :
+print('Coordonnées: {latitude}, {longitude}'
+      .format(latitude='37.24N', longitude='-115.81W'))
+# En sortie ==> 'Coordonnées: 37.24N, -115.81W'
+coord = {'latitude': '37.24N', 'longitude': '-115.81W'}
+print('Coordonnées: {latitude}, {longitude}'.format(**coord))
+# En sortie ==> 'Coordonnées: 37.24N, -115.81W'
+
+
+# Accéder aux attributs d'un argument :
+class Point:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+    def __str__(self):
+        return 'Point({self.x}, {self.y})'.format(self=self)
+    
+
+print(Point(5,3))
+# En sortie ==> 'Point(5,3)'
+
+# Accéder aux éléments d'un argument :
+coord = (3, 5)
+print('X: {0[0]};  Y: {0[1]}'.format(coord))
+# En sortie ==> 'X: 3;  Y: 5' 
+
+# Aligner le texte et spécifier une longueur minimale :
+print('{:<30}'.format('aligné à gauche'))
+# En sortie ==> 'aligné à gauche               '
+print('{:>30}'.format('aligné à droite'))
+# En sortie ==> '               aligné à droite'
+print('{:^30}'.format('centré'))
+# En sortie ==> '            centré            '
+# Avec '*' comme caractère de remplissage :
+print('{:*^30}'.format('centré'))  
+# En sortie ==> '************centré************' 
+
+# Convertir une valeur dans différentes bases :
+print("int: {0:d};  hex: {0:x};  oct: {0:o};  bin: {0:b}"
+      .format(42))
+# En sortie ==> 'int: 42;  hex: 2a;  oct: 52;  bin: 101010'
+# Avec 0x, 0o ou 0b comme préfixes :
+print("int: {0:d};  hex: {0:#x};  oct: {0:#o};  bin: {0:#b}"
+      .format(42)) 
+# En sortie ==> 'int: 42;  hex: 0x2a;  oct: 0o52;  
+# bin: 0b101010'
+octets = [192, 168, 0, 1]
+print('{:02X}{:02X}{:02X}{:02X}'.format(*octets))
+# En sortie ==> 'C0A80001'
+
+# L'underscore pour séparer les milliers :
+print('{:_}'.format(1234567890))
+# En sortie ==> '1_234_567_890'
+
+# Exprimer un pourcentage
+points, total = 17, 24
+print('Taux de réponses corrects: {:.2%}'
+      .format(points/total))
+# En sortie ==> 'Taux de réponses corrects: 70.83%'
+\end{lstlisting}
+\medskip
+
+\section{Le module \texttt{string}}
+Ce module fournit quelques constantes et permet de réaliser quelques opérations usuelles sur les chaînes de caractères\footnote{Documentation officielle : \url{https://docs.python.org/fr/3/library/string.html}}.
+\medskip
+
+\subsection*{Les constantes}
+\begin{description}
+	\item[\texttt{string.ascii\_lowercase}]: Une chaîne qui contient toutes les lettres de l'alphabet en minuscules, de \texttt{a} à \texttt{z}.
+	\item[\texttt{string.ascii\_uppercase}]: Une chaîne qui contient toutes les lettres de l'alphabet en majuscules, de \texttt{A} à \texttt{Z}.
+	\item[\texttt{string.ascii\_letters}]: Concaténation des deux précédentes constantes.
+	\item[\texttt{string.digits}]: Contient tous les chiffres de \texttt{0} à \texttt{9}.
+	\item[\texttt{string.hexdigits}]: Contient tous les caractères \texttt{ascii} hexadécimaux, soit \texttt{string. digits + 'abcdef' + 'ABCDEF'}\footnote{Ou bien : \texttt{string.digits + string.ascii\_lowercase[0:6] + string.ascii\_uppercase[0:6]}}.
+	\item[\texttt{string.octdigits}]: \texttt{'01234567'} (ou bien \texttt{string.digits[0:8]}).
+	\item[\texttt{string.punctuation}]: Contient tous les signes considérés comme des signes de ponctuation, soit:
+	 \begin{verbatim}
+		!"#$%&'()*+,-./:<?;=@>[\]^_`{|}~ 
+	 \end{verbatim}
+	\item[\texttt{string.whitespace}]: Contient tous les caractères considérés comme espaces, soit :
+	 \begin{verbatim}
+		' \t\n\r\v\f'
+	 \end{verbatim}
+	\item[\texttt{string.printable}]: Contient tous les caractères considérés comme affichables, soit : \texttt{string.digits + string.ascii\_letters + string.punctuation + string.whitespace}.
+\end{description}
+\medskip
+
+\subsection*{La classe \texttt{Formatter}}
+La classe \texttt{Formatter}\footnote{\url{https://docs.python.org/fr/3/library/string.html\#custom-string-formatting}} permet de créer et personnaliser des comportements de formatage en utilisant la même implémentation qu'avec la méthode primitive \texttt{format()} comme, par exemple, avec des méthodes de remplacement de champs spécifiques dans une chaîne. Cependant, pour un usage courant, la méthode \texttt{str.format()} est préférée pour sa simplicité et sa lisibilité. Mais la gestion des erreurs spécifiques au formatage est moins explicite par rapport à \texttt{Formatter}.
+\medskip
+
+\subsection*{Les chaînes modèles}
+Le module \texttt{string} fournit également la classe \texttt{Template} qui implémente des règles de substitution de chaînes modèles. Les marqueurs de remplacement sont des variables précédées du signe \texttt{\$}. Ce mode de remplacement offre une meilleure sécurité que les méthodes de formatage conventionnelles. La syntaxe est à la fois claire et intuitive, et cela permet de créer facilement des modèles de chaînes réutilisables.
+\medskip
+
+Le constructeur, pour la classe ne prend qu'un seul argument qui est la chaîne modèle\footnote{Cette phrase prendra son sens quand sera abordée la programmation orientée objet}. Illustrons tout simplement cela par le script qui suit:
+\begin{lstlisting}
+from string import Template
+
+print("\nAVEC LA CLASSE 'Template' DU MODULE 'string' :\n" 
+      + "-" * 20)
+# Méthode '.sustitute()'
+qui_ecrit_quoi = Template(
+    "$auteur a écrit l'ouvrage '$livre'")
+print(qui_ecrit_quoi.substitute(auteur="Philippe DJIAN", 
+                                livre="Maudit Manège"))
+print(qui_ecrit_quoi.substitute(
+    auteur="Ernest HEMINGWAY",
+    livre="Pour qui sonne le glas"))
+"""En sortie ==>
+Philippe DJIAN a écrit l'ouvrage 'Maudit Manège'
+Ernest HEMINGWAY a écrit l'ouvrage 
+'Pour qui sonne le glas'"""
+
+# Avec un dictionnaire :
+LIVRES = {
+    "DJIAN": "Sotos",
+    "KEROUAC": "Sur la route",
+    "HEMINGWAY": "Paris est une fête"
+    }
+for auteur, ouvrage in LIVRES.items():
+    print(Template("$auteur a écrit '$ouvrage'")
+          .substitute(auteur=auteur, ouvrage=ouvrage))
+"""En sortie ==>
+DJIAN a écrit 'Sotos'
+KEROUAC a écrit 'Sur la route'
+HEMINGWAY a écrit 'Paris est une fête'"""
+
+# Méthode safe_substitute() :
+qui_ecrit_quoi = Template(
+    "$auteur a écrit l'ouvrage '$livre'")
+print(qui_ecrit_quoi.safe_substitute(
+    auteur="Philippe DJIAN"))
+# Alors que : 'print(qui_ecrit_quoi.substitute(
+# auteur="Philippe DJIAN"))' provoque une 'KeyError'
+
+# Méthode get_identifiers() :
+print(qui_ecrit_quoi.get_identifiers()) 
+# Retourne ube liste des identifiants valides.
+# En sortie ==> ['auteur', 'livre']
 \end{lstlisting}
 \medskip
 
